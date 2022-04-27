@@ -3,14 +3,15 @@ import React, {useEffect, useState} from 'react'
 import CustomButton from '../Components/CustomButton'
 import * as SQlite from "expo-sqlite"
 import Search from './Search'
+import DatePicker from 'react-native-datepicker'
 
-const db = SQlite.openDatabase("dbName", 2.0)
+const database = SQlite.openDatabase("dbName", 2.0)
 
 const Home = ({navigation}) => {
-    const [activityName, setActivityName] = useState("")
+    const [activity, setActivity] = useState("")
     const [location, setLocation] = useState("");
     const [date, setDate] = useState("");
-    const [attendingTime, setAttendingTime] = useState("");
+    const [timeofattending, setTimeofattending] = useState("");
     const [reporter, setReporter] = useState("");
 
     useEffect(() =>{
@@ -18,7 +19,7 @@ const Home = ({navigation}) => {
     }, []);
     
     const submit = () => {
-        if (activityName.length === 0) {
+        if (activity.length === 0) {
             Alert.alert("Please enter activity name.");
           }
           else if (date.length === 0){
@@ -29,10 +30,10 @@ const Home = ({navigation}) => {
           }
           else {
             try {
-              db.transaction((tx) => {
+              database.transaction((tx) => {
                 tx.executeSql(
-                  "INSERT INTO DATABASE (ActivityName, Location, Date, AttendingTime, Reporter) VALUES (?,?,?,?,?);",
-                  [activityName, location, date, attendingTime, reporter],
+                  "INSERT INTO DATABASE (Activity, Location, Date, Timeofattending, Reporter) VALUES (?,?,?,?,?);",
+                  [activity, location, date, timeofattending, reporter],
                   (tx, results) => {
                     console.log(results.rowsAffected);
                   }
@@ -55,9 +56,9 @@ const Home = ({navigation}) => {
     }
 
     const createTable = () => {
-        db.transaction((tx) => {
+        database.transaction((tx) => {
           tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS DATABASE(Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityName TEXT, Location TEXT, Date TEXT, AttendingTime TEXT, Reporter TEXT);"
+            "CREATE TABLE IF NOT EXISTS DATABASE(Id INTEGER PRIMARY KEY AUTOINCREMENT, Activity TEXT, Location TEXT, Date TEXT, Timeofattending TEXT, Reporter TEXT);"
           );
         });
       };
@@ -67,8 +68,8 @@ const Home = ({navigation}) => {
           <TextInput
             style={styles.input}
             placeholder="Activity Name (Required)"
-            onChangeText={(value) => setActivityName(value)}
-            value={activityName}
+            onChangeText={(value) => setActivity(value)}
+            value={activity}
           />
           <TextInput
             style={styles.input}
@@ -76,19 +77,39 @@ const Home = ({navigation}) => {
             onChangeText={(value) => setLocation(value)}
             value={location}
           />
-           <TextInput
+           <DatePicker
+          style={styles.datePicker}
+          date={date}
+          mode="date"
+          placeholder="Date(Required)"
+          format="DD-MM-YYYY"
+          minDate="01-01-2015"
+          maxDate="01-01-2025"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateInput: {
+              marginLeft: 36,
+              fontSize: 20,
+            },
+            dateIcon: {
+              position: 'relative',
+              left: 0,
+              top: 4,
+              marginLeft: 0,
+            },
+          }}
+          onDateChange={(date) => {
+            setDate(date);
+          }}
+        />
+          <TextInput
             style={styles.input}
-            placeholder="Date (Required)"
-            onChangeText={(value) => setDate(value)}
-            value={date}
+            placeholder="Time of Attending"
+            onChangeText={(value) => setTimeofattending(value)}
+            value = {reporter}
           />
-           <TextInput
-            style={styles.input}
-            placeholder="Time of attending"
-            onChangeText={(value) => setAttendingTime(value)}
-            value={attendingTime}
-          />
-           <TextInput
+          <TextInput
             style={styles.input}
             placeholder="Name of Reporter (Required)"
             onChangeText={(value) => setReporter(value)}
@@ -123,6 +144,13 @@ const styles = StyleSheet.create({
       fontSize: 20,
       marginBottom: 10,
       marginTop: 10,
+    },
+    datePicker: {
+      alignItems: "center",
+      justifyContent:"center",
+      height:60,
+      width: 370,
+      fontSize:20,
     },
   });
 
