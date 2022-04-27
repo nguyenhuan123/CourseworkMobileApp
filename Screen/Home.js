@@ -2,36 +2,37 @@ import { View, Text, Alert, TextInput, StyleSheet } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import CustomButton from '../Components/CustomButton'
 import * as SQlite from "expo-sqlite"
+import Search from './Search'
 
-const database = SQlite.openDatabase("dbName", 1.0)
+const db = SQlite.openDatabase("dbName", 2.0)
 
 const Home = ({navigation}) => {
-    const [activity, setActivity] = useState("")
+    const [activityName, setActivityName] = useState("")
     const [location, setLocation] = useState("");
     const [date, setDate] = useState("");
-    const [timeofattending, setTimeofattending] = useState("");
+    const [attendingTime, setAttendingTime] = useState("");
     const [reporter, setReporter] = useState("");
 
     useEffect(() =>{
         createTable();
     }, []);
-
+    
     const submit = () => {
-      if (activity.length === 0) {
-        Alert.alert("Please enter activity name.");
-      }
-      else if (date.length === 0){
-        Alert.alert("Please enter date.")
-      } 
-      else if (reporter.length === 0){
-        Alert.alert("Please enter reporter's name.")
-      }
-      else {
+        if (activityName.length === 0) {
+            Alert.alert("Please enter activity name.");
+          }
+          else if (date.length === 0){
+            Alert.alert("Please enter date.")
+          } 
+          else if (reporter.length === 0){
+            Alert.alert("Please enter reporter's name.")
+          }
+          else {
             try {
-              database.transaction((tx) => {
+              db.transaction((tx) => {
                 tx.executeSql(
-                  "INSERT INTO DATABASE (Activity, Location, Date, Timeofattending, Reporter) VALUES (?,?,?,?,?);",
-                  [activity, location, date, timeofattending, reporter],
+                  "INSERT INTO DATABASE (ActivityName, Location, Date, AttendingTime, Reporter) VALUES (?,?,?,?,?);",
+                  [activityName, location, date, attendingTime, reporter],
                   (tx, results) => {
                     console.log(results.rowsAffected);
                   }
@@ -45,13 +46,18 @@ const Home = ({navigation}) => {
           }
     };
 
-    const showResult = () =>{
+    const showResult = () => {
         navigation.navigate("Result");
     };
+
+    const search = () => {
+      navigation.navigate("Search");
+    }
+
     const createTable = () => {
-        database.transaction((tx) => {
+        db.transaction((tx) => {
           tx.executeSql(
-            "CREATE TABLE IF NOT EXISTS DATABASE(Id INTEGER PRIMARY KEY AUTOINCREMENT, Activity TEXT, Location TEXT, Date TEXT, Timeofattending TEXT, Reporter TEXT);"
+            "CREATE TABLE IF NOT EXISTS DATABASE(Id INTEGER PRIMARY KEY AUTOINCREMENT, ActivityName TEXT, Location TEXT, Date TEXT, AttendingTime TEXT, Reporter TEXT);"
           );
         });
       };
@@ -61,12 +67,12 @@ const Home = ({navigation}) => {
           <TextInput
             style={styles.input}
             placeholder="Activity Name (Required)"
-            onChangeText={(value) => setActivity(value)}
-            value={activity}
+            onChangeText={(value) => setActivityName(value)}
+            value={activityName}
           />
           <TextInput
             style={styles.input}
-            placeholder="Location "
+            placeholder="Location"
             onChangeText={(value) => setLocation(value)}
             value={location}
           />
@@ -78,9 +84,9 @@ const Home = ({navigation}) => {
           />
            <TextInput
             style={styles.input}
-            placeholder="Time of attending "
-            onChangeText={(value) => setTimeofattending(value)}
-            value={timeofattending}
+            placeholder="Time of attending"
+            onChangeText={(value) => setAttendingTime(value)}
+            value={attendingTime}
           />
            <TextInput
             style={styles.input}
@@ -90,7 +96,7 @@ const Home = ({navigation}) => {
           />
           <View style = {{flexDirection:"row"}}>
           <CustomButton title="Show All" handlePress ={showResult} />
-          <CustomButton title="Search" />
+          <CustomButton title="Search" handlePress = {search} />
           <CustomButton title="Submit" handlePress={submit}/>
           </View>
         </View>
@@ -120,4 +126,4 @@ const styles = StyleSheet.create({
     },
   });
 
-  export default Home;
+export default Home
