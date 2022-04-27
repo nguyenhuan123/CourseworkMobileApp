@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
       height: 50,
       width: 300,
       borderRadius: 5,
-      textAlign: "center",
+      textAlign: "left",
       fontSize: 20,
       marginBottom: 10,
       marginTop: 10,

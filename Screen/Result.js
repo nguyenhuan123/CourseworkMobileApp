@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import * as SQLite from "expo-sqlite"
 import ResultItem from '../Components/ResultItem'
 
-const db = SQLite.openDatabase("dbName", 2.0)
+const database = SQLite.openDatabase("dbName", 2.0)
 
 const Result = ({navigation}) => {
    /*  const [activity, setActivity] = useState("")
@@ -47,7 +47,7 @@ const Result = ({navigation}) => {
  */
     const getResult = () => {
         try {
-          db.transaction((tx) => {
+          database.transaction((tx) => {
             tx.executeSql("SELECT * FROM DATABASE", [], (tx, result) => {
               var len = result.rows.length;
               console.log(JSON.stringify(result.rows));

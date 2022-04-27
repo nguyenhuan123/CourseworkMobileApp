@@ -5,7 +5,9 @@ const ResultItem = ({result, navigation }) => {
   const detailResult = () => {
     navigation.navigate("Detail", {result})
   }
-
+  const updateResult = () => {
+    navigation.navigate("Update", {result})
+  }
 
   return (
     <View style= {styles.container}>
@@ -28,6 +30,16 @@ const ResultItem = ({result, navigation }) => {
           textTransform:"uppercase",
           color:"white"
         }}>Detail</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onpress = {updateResult} style = {styles.button}>
+        <Text style = {{
+          alignItems:"center",
+          justifyContent:"center",
+          paddingHorizontal:20,
+          fontSize:12,
+          textTransform:"uppercase",
+          color:"white"}}>Update</Text>
       </TouchableOpacity>
 
     </View>
@@ -59,18 +71,19 @@ const styles = StyleSheet.create({
         margin: 15,
         color:"green"
       },
-        button: {
+      button: {
         paddingLeft: 2,
-        width: 90,
+        width: 100,
         height: 50,
         borderWidth: 3,
         backgroundColor: "blue",
         fontSize: 250,
-        alignItems: "flex-end",
+        alignItems: "center",
         justifyContent: "center",
         borderRadius: 5,
         marginTop:20,
         marginHorizontal:5,
+      
       }
 })
 

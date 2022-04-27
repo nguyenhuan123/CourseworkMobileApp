@@ -22,7 +22,7 @@ const Search = ({navigation}) => {
                 let row = result.rows.item(i);
                 setData((prevState) => [
                   ...prevState,
-                  {Id: row.Id, Activity: row.Activity, Location: row.Location, Date: row.Date, Reporter: row.Reporter},
+                  {Id: row.Id, Activity: row.Activity, Location: row.Location, Date: row.Date,Timeofattending: row.Timeofattending,Reporter: row.Reporter},
                 ]);
               }
             });

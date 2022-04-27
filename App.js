@@ -8,6 +8,7 @@ import Home from './Screen/Home';
 import Result from './Screen/Result';
 import Detail from './Screen/Detail';
 import Search from './Screen/Search';
+import Update from './Screen/Update';
 
 const stack = createStackNavigator();
 
@@ -41,6 +42,12 @@ export default function App() {
         }}
         name = "Search"
         component={Search}
+        />
+        <stack.Screen options={{
+          title: "Update"
+        }}
+        name = "Update"
+        component={Update} 
         />
       </stack.Navigator>
     </NavigationContainer>

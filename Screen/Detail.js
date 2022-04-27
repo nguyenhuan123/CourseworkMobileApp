@@ -4,7 +4,7 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../Components/CustomButton";
 import Search from "./Search";
 
-const db = SQLite.openDatabase("dbName", 2.0);
+const database = SQLite.openDatabase("dbName", 2.0);
 
 const Detail  = ({ route, navigation }) => {
   const { result } = route.params;
@@ -12,7 +12,7 @@ const Detail  = ({ route, navigation }) => {
 
   const deleteItem = () => {
     try {
-      db.transaction((tx) => {
+      database.transaction((tx) => {
         tx.executeSql(
           "DELETE FROM DATABASE WHERE id = ?",
           [result.Id],
