@@ -7,7 +7,7 @@ import DatePicker from "react-native-datepicker";
 const database = SQLite.openDatabase("dbName", 2.0)
 
 const Update  = ({ route, navigation }) => {
-  const [updateId, setUpdateId] = useState("");
+  const [updateId, setNewId] = useState("");
   const [activity, setActivity] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
@@ -16,7 +16,7 @@ const Update  = ({ route, navigation }) => {
 //const { result } = route.params;
 
 useEffect(() =>{
-setUpdateId(route.params.Id);
+setNewId(route.params.Id);
 setActivityname(route.params.Activity);
 setLocation(route.params.Location);
 setDate(route.params.Date);
@@ -24,11 +24,11 @@ setTimeofattending(route.params.Timeofattending);
 setNameofreporter(route.params.Reporter);
 }, [])
 const updateHandle = () => {
-  if (activityname.length === 0) {
+  if (activity.length === 0) {
       Alert.alert("Warning !!! Please enter activity name");
     }
     else if( date.length === 0){Alert.alert("Warning !!! Please enter datetime")}
-    else if( nameofreporter.length === 0){Alert.alert("Warning !!! Please select furniture type")}
+    else if( reporter.length === 0){Alert.alert("Warning !!! Please select furniture type")}
     else {
       try {
         database.transaction((tx) => {

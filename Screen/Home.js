@@ -107,7 +107,7 @@ const Home = ({navigation}) => {
             style={styles.input}
             placeholder="Time of Attending"
             onChangeText={(value) => setTimeofattending(value)}
-            value = {reporter}
+            value = {timeofattending}
           />
           <TextInput
             style={styles.input}
