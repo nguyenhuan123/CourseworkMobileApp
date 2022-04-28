@@ -5,7 +5,7 @@ const CustomButton = (props) => {
     return (
       <View>
           <TouchableOpacity
-              style = {styles.touch}
+              style = {styles.button}
               onPress = {props.handlePress}>
               <Text style = {styles.Text}>{props.title}</Text>
           </TouchableOpacity>
@@ -21,10 +21,10 @@ const CustomButton = (props) => {
             color: "white",
             fontSize: 20,
           },
-          touch:
+          button:
         {
-          width: 120,
-          height: 50,
+          width: 125,
+          height: 70,
           borderWidth: 3,
           backgroundColor: "#0066CC",
           fontSize: 250,

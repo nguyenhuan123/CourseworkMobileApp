@@ -1,4 +1,4 @@
-import { View, Text, Alert, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, Alert, TextInput, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import CustomButton from '../Components/CustomButton'
 import * as SQlite from "expo-sqlite"
@@ -55,8 +55,8 @@ const Home = ({navigation}) => {
       navigation.navigate("Search");
     };
     
-    const ConfirmDialog =() => {
-      navigation.navigate("ConfirmDialog")
+    const notification =() => {
+      navigation.navigate("Notification")
     };
 
     const createTable = () => {
@@ -125,7 +125,7 @@ const Home = ({navigation}) => {
           <CustomButton title="Submit" handlePress={submit}/>
           </View>
           <TouchableOpacity
-          onPress={ConfirmDialog}
+          onPress={notification}
           style={styles.touch}>
             <Text
             style = {{
@@ -134,7 +134,7 @@ const Home = ({navigation}) => {
               paddingHorizontal:20,
               fontSize:20,
               textTransform:"uppercase",
-              color:"black"}}> Confirmation Diaglog</Text>
+              color:"black"}}> Notification</Text>
           </TouchableOpacity>
 
         </View>

@@ -5,7 +5,7 @@ import { Audio } from 'expo-av';
 import CustomButton from "../Components/CustomButton";
 
 
-const ConfirmDialog = () => {
+const Notification = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const turnModal = () => {
         setModalVisible(!modalVisible);
@@ -55,7 +55,7 @@ const ConfirmDialog = () => {
             marginBottom: 15,
             textAlign: "center",
             fontSize:20
-            }}>Confirmaion Dialog Box</Text>
+            }}>Notification</Text>
             <TouchableOpacity
             style = {{
                 width: 370,
@@ -136,4 +136,4 @@ const ConfirmDialog = () => {
         </View>
     )
 }
-export default ConfirmDialog;
+export default Notification;
