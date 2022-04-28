@@ -9,6 +9,7 @@ import Result from './Screen/Result';
 import Detail from './Screen/Detail';
 import Search from './Screen/Search';
 import Update from './Screen/Update';
+import ConfirmDialog from './Screen/ConfirmDialog';
 
 const stack = createStackNavigator();
 
@@ -49,6 +50,10 @@ export default function App() {
         name = "Update"
         component={Update} 
         />
+        <stack.Screen
+        name = "ConfirmDialog"
+        component={ConfirmDialog}>
+        </stack.Screen>
       </stack.Navigator>
     </NavigationContainer>
   );
